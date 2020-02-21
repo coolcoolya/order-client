@@ -1,0 +1,6 @@
+order客户端：
+1.File ->New Project ->Spring Initializr ->
+    Web -> Spring Web
+    Spring Cloud Discovery -> Eureka Discovery Client
+2.application.yml
+3.启动类添加@EnableEurekaClient注解，开启eurekaClient
