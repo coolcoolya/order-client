@@ -1,9 +1,13 @@
 package com.example.orderclient.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * 使用rest方式调用服务
@@ -16,6 +20,9 @@ public class OrderController {
     //restTemplate方式底层采用的是httpClient技术
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     /**
      * 在springCloud中有两种调用方式restTemplate和feign
@@ -31,5 +38,16 @@ public class OrderController {
         String result = restTemplate.getForObject(memberUrl,String.class);
         System.out.println("订单服务调用会员服务，result："+result);
         return result;
+    }
+
+
+    //获取注册中心上服务列表 使用discoveryClient接口
+    @RequestMapping("/discoveryClientMember")
+    public List<ServiceInstance> discoveryClientMember(){
+        List<ServiceInstance> instances = discoveryClient.getInstances("app-member");
+        for (ServiceInstance in:instances) {
+            System.out.println(in.getUri());
+        }
+        return instances;
     }
 }
