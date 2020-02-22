@@ -15,4 +15,10 @@ eureka:
     register-with-eureka: true
 #从eureka上获取注册信息
     fetch-registry: true
-
+####
+#心跳检测，测试时，将值设置小些，保证服务关闭后，注册中心能及时剔除服务
+  instance:
+#客户端向服务端发送心跳的时间间隔，单位为秒
+    lease-renewal-interval-in-seconds: 1
+#服务端在收到最后一次心跳之后等待的时间上限，单位为秒，超过2秒，没有收到心跳就会剔除服务
+    lease-expiration-duration-in-seconds: 2
