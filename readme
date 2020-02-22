@@ -4,3 +4,15 @@ order客户端：
     Spring Cloud Discovery -> Eureka Discovery Client
 2.application.yml
 3.启动类添加@EnableEurekaClient注解，开启eurekaClient
+
+
+
+声明式客户端调用工具Feign的使用：
+1 .加入依赖
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+2.新建接口MemberFeign，使用@FeignClient(name = "app-member")注解，name属性的值=调用服务在注册中心的别名
+  接口里面的方法，就是要调用服务的方法。
+3.在启动类加上注解@EnableFeignClients，启动Feign功能
